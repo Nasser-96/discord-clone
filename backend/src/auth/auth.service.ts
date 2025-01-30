@@ -1,7 +1,7 @@
 import {
-  BadGatewayException,
   ConflictException,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import ReturnResponse from 'src/helper/returnResponse';
 import * as bcrypt from 'bcryptjs';
@@ -59,18 +59,17 @@ export class AuthService {
   }
 
   private async generateJWT(username: string, id?: number) {
+    const timeToExpire = 60 * 60 * 24 * 2; // 2 days
     return this.jwtService.signAsync(
       {
         username: username,
-        id: id,
+        id: id?.toString(),
       },
-      { secret: process.env.JSON_TOKEN_KEY },
+      { secret: process.env.JSON_TOKEN_KEY, expiresIn: `${timeToExpire}s` },
     );
   }
 
   async login({ username, password }: LoginParams) {
-    console.log(username);
-
     const getUserByEmail = await this.prismaService.user_data.findUnique({
       where: {
         username,
@@ -78,7 +77,7 @@ export class AuthService {
     });
 
     if (!getUserByEmail) {
-      throw new BadGatewayException(
+      throw new UnauthorizedException(
         ReturnResponse({
           error_msg: 'Username or Password incorrect',
           is_successful: false,
@@ -100,7 +99,7 @@ export class AuthService {
         is_successful: true,
       });
     } else {
-      throw new BadGatewayException(
+      throw new UnauthorizedException(
         ReturnResponse({ error_msg: 'Username or Password incorrect' }),
       );
     }

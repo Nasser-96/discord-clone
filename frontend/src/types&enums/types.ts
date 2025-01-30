@@ -13,3 +13,20 @@ export type LocalStorageUserDataType = {
 export type DynamicValuesType = {
   [key: string]: number | string | boolean | string[] | number[] | unknown;
 };
+
+export type LoginRequestType = {
+  username: string;
+  password: string;
+};
+
+export type LoginResponseDataType = {
+  user_token: string;
+  username: string;
+};
+
+export type UserStoreDataType = {
+  username: string;
+  id: number;
+  iat: number;
+  exp: number;
+};

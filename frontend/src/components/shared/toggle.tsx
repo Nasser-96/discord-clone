@@ -9,6 +9,7 @@ export default function Toggle({ isChecked, onChange }: ToggleProps) {
       <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
         <input
           type="checkbox"
+          aria-label="Toggle"
           checked={isChecked}
           className={`absolute transition-all duration-300 block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer ${
             isChecked ? "left-[40%]" : "left-0"

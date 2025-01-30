@@ -5,3 +5,13 @@ export enum AxiosMethods {
   DELETE = "delete",
   HEAD = "head",
 }
+
+export enum LanguageEnum {
+  AR = "ar",
+  EN = "en",
+}
+
+export enum DirectionEnum {
+  RTL = "rtl",
+  LTR = "ltr",
+}

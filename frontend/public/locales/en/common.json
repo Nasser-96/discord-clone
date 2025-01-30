@@ -1,0 +1,5 @@
+{
+  "welcome": "Welcome to our site",
+  "greeting": "Hello, {{name}}!",
+  "error.required": "This field is required"
+}
