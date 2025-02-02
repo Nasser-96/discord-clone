@@ -1,5 +1,8 @@
 {
   "welcome": "مرحبًا بكم في موقعنا",
   "greeting": "مرحبًا، {{name}}!",
-  "error.required": "هذا الحقل مطلوب"
+  "error.required": "هذا الحقل مطلوب",
+  "username": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "login": "تسجيل الدخول"
 }

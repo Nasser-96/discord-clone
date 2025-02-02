@@ -1,6 +1,6 @@
-import { makeRequest } from "@/axios/axios";
-import { AxiosMethods } from "@/types&enums/enums";
-import { LoginRequestType } from "@/types&enums/types";
+import { makeRequest } from "../axios/axios";
+import { AxiosMethods } from "../types&enums/enums";
+import { LoginRequestType } from "../types&enums/types";
 
 export const loginService = async (data: LoginRequestType) => {
   return makeRequest({

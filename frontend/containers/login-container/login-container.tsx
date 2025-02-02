@@ -1,21 +1,23 @@
-import Button from "@/components/shared/button";
-import InputField from "@/components/shared/InputField";
-import { useTranslation } from "next-i18next";
+"use client";
+
+import Button from "../../components/shared/button";
+import InputField from "../../components/shared/InputField";
+import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import {
   LoginRequestType,
   LoginResponseDataType,
   ReturnResponseType,
-} from "@/types&enums/types";
+} from "../../core/types&enums/types";
 import { useValidationSchema } from "./login-container.validation";
-import { loginService } from "@/model/services";
-import { useRouter } from "next/router";
-import useUserStore from "@/stores/user-store";
-import { getDecodeToken } from "@/helpers/helpers";
-import { appRoutesObj } from "@/app-paths";
+import { loginService } from "../../core/model/services";
+import useUserStore from "../../core/stores/user-store";
+import { getDecodeToken } from "../../core/helpers/helpers";
+import { appRoutesObj } from "../../app-paths";
+import { useRouter } from "next/navigation";
 
 export default function LoginContainer() {
-  const { t } = useTranslation("login");
+  const { t } = useTranslation();
   const { validation } = useValidationSchema();
   const route = useRouter();
   const { setUserData } = useUserStore();
@@ -23,13 +25,13 @@ export default function LoginContainer() {
   const formik = useFormik<LoginRequestType>({
     initialValues: { username: "", password: "" },
     validationSchema: validation,
-    onSubmit: (values) => login(),
+    onSubmit: (values) => login(values),
   });
 
-  const login = async () => {
+  const login = async (values: LoginRequestType) => {
     try {
       const loginData: ReturnResponseType<LoginResponseDataType> =
-        await loginService(formik.values);
+        await loginService(values);
       const token = loginData?.response?.user_token;
       setUserData(getDecodeToken(token));
       localStorage.setItem("access_token", token);

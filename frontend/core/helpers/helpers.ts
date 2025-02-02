@@ -1,4 +1,4 @@
-import { UserStoreDataType } from "@/types&enums/types";
+import { UserStoreDataType } from "../types&enums/types";
 import { jwtDecode } from "jwt-decode";
 
 export const getDecodeToken = (token: string) => {

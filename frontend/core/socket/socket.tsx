@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 // eslint-disable-next-line import/named
-import { io, ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
-import useUserStore from '@/stores/user-store';
-import { DynamicValuesType } from '@/types&enums/types';
+import { io, ManagerOptions, Socket, SocketOptions } from "socket.io-client";
+import useUserStore from "../stores/user-store";
+import { DynamicValuesType } from "../types&enums/types";
 
 export interface useSocketIoProps {
   url: string;
@@ -23,7 +23,7 @@ const options: Partial<ManagerOptions & SocketOptions> = {
  * @param shouldConnect this will prevent the connection from happening ( if wanted ), by default it is false ( it can be state )
  * @param query it is a params that a backend want it
  * @returns ( socket ) the connection of socket ( it can be null at the start and after unmount )
-*/
+ */
 const useSocketIo = ({
   url,
   shouldConnect = false,
@@ -31,7 +31,7 @@ const useSocketIo = ({
 }: useSocketIoProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const { userData } = useUserStore();
-  
+
   useEffect(() => {
     if (socket) {
       socket?.disconnect();
@@ -45,18 +45,18 @@ const useSocketIo = ({
       io(url, {
         ...options,
         auth: {
-          token: userData.token ?? '',
+          token: "",
         },
         query: query ? query : undefined,
         autoConnect: false, // default: true
-      }),
+      })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       socket?.disconnect();
       setSocket(null);
     };
-  }, [userData.token]);
+  }, []);
 
   useEffect(() => {
     if (shouldConnect) {

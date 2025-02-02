@@ -1,4 +1,5 @@
-import { useTranslation } from "next-i18next";
+"use client";
+import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 
 export const useValidationSchema = () => {

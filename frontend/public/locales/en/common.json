@@ -1,5 +1,8 @@
 {
   "welcome": "Welcome to our site",
   "greeting": "Hello, {{name}}!",
-  "error.required": "This field is required"
+  "error.required": "This field is required",
+  "username": "Username",
+  "password": "Password",
+  "login": "Login"
 }
