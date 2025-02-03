@@ -7,6 +7,8 @@ import ReturnResponse from 'src/helper/returnResponse';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ThemeEnum } from 'src/types&enums/enum';
+import { UserDataType } from 'src/types&enums/types';
 
 interface SignupParams {
   password: string;
@@ -47,23 +49,37 @@ export class AuthService {
       data: {
         username: username,
         password: hashedPassword,
+        user_profile: {
+          create: {
+            theme: ThemeEnum.LIGHT,
+          },
+        },
+      },
+      include: {
+        user_profile: true,
       },
     });
 
-    const token = await this.generateJWT(user?.username, user.id);
+    const userData: UserDataType = {
+      id: user?.id?.toString(),
+      profile: { ...user?.user_profile },
+      username: user?.username,
+    };
+
+    const token = await this.generateJWT(userData);
 
     return ReturnResponse({
       response: { user_token: token },
       success: 'User Created Successfully',
+      is_successful: true,
     });
   }
 
-  private async generateJWT(username: string, id?: number) {
+  private async generateJWT(userData: UserDataType) {
     const timeToExpire = 60 * 60 * 24 * 2; // 2 days
     return this.jwtService.signAsync(
       {
-        username: username,
-        id: id?.toString(),
+        ...userData,
       },
       { secret: process.env.JSON_TOKEN_KEY, expiresIn: `${timeToExpire}s` },
     );
@@ -73,6 +89,9 @@ export class AuthService {
     const getUserByEmail = await this.prismaService.user_data.findUnique({
       where: {
         username,
+      },
+      include: {
+        user_profile: true,
       },
     });
 
@@ -90,10 +109,15 @@ export class AuthService {
     );
 
     if (getUserByEmail && isValidPassword) {
-      const token = await this.generateJWT(
-        getUserByEmail?.username,
-        getUserByEmail?.id,
-      );
+      const userData: UserDataType = {
+        id: getUserByEmail?.id?.toString(),
+        username: getUserByEmail?.username,
+        profile: {
+          theme: getUserByEmail?.user_profile?.theme,
+        },
+      };
+      const token = await this.generateJWT(userData);
+
       return ReturnResponse({
         response: { user_token: token, username },
         is_successful: true,
@@ -109,9 +133,38 @@ export class AuthService {
     const decodedData = this.jwtService.verify(token, {
       secret: process.env.JSON_TOKEN_KEY,
     });
+
     await this.prismaService.user_data.update({
       where: { id: decodedData.id },
       data: { username: newName },
+    });
+  }
+
+  async getNewToken(token: string) {
+    const decodedData = this.jwtService.verify(token, {
+      secret: process.env.JSON_TOKEN_KEY,
+    });
+
+    const getUserById = await this.prismaService.user_data.findUnique({
+      where: {
+        id: parseInt(decodedData?.id),
+      },
+      select: {
+        id: true,
+        user_profile: true,
+        username: true,
+      },
+    });
+    const newData: UserDataType = {
+      id: getUserById?.id?.toString(),
+      profile: getUserById?.user_profile,
+      username: getUserById?.username,
+    };
+    const newToken = await this.generateJWT({ ...newData });
+
+    return ReturnResponse({
+      is_successful: true,
+      response: { access_token: newToken },
     });
   }
 }

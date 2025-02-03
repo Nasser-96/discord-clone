@@ -4,7 +4,9 @@ export interface ComponentLoaderProps {
 
 export function ComponentLoader({ size }: ComponentLoaderProps) {
   return (
-    <div className={`flex items-center justify-center text-white`}>
+    <div
+      className={`flex items-center justify-center text-black dark:text-white`}
+    >
       <svg
         className="ml-1 mr-1 animate-spin text-current"
         xmlns="http://www.w3.org/2000/svg"

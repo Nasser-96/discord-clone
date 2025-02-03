@@ -15,3 +15,8 @@ export enum DirectionEnum {
   RTL = "rtl",
   LTR = "ltr",
 }
+
+export enum ThemeEnum {
+  LIGHT = "LIGHT",
+  DARK = "DARK",
+}

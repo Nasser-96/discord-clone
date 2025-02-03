@@ -15,6 +15,7 @@ import useUserStore from "../../core/stores/user-store";
 import { getDecodeToken } from "../../core/helpers/helpers";
 import { appRoutesObj } from "../../app-paths";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginContainer() {
   const { t } = useTranslation();
@@ -40,6 +41,12 @@ export default function LoginContainer() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      route.push(appRoutesObj?.shared?.getHomePagePath());
+    }
+  }, []);
 
   return (
     <div className="w-full h-full min-h-screen flex items-center justify-center">

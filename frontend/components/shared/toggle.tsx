@@ -18,7 +18,7 @@ export default function Toggle({ isChecked, onChange }: ToggleProps) {
         />
         <label
           className={`block overflow-hidden h-6 rounded-full cursor-pointer ${
-            isChecked ? "bg-emerald-700" : "bg-gray-300"
+            isChecked ? "bg-emerald-500" : "bg-gray-300"
           }`}
           onClick={onChange}
         />

@@ -1,3 +1,5 @@
+import { ThemeEnum } from "./enums";
+
 export type ReturnResponseType<T> = {
   is_successful: boolean;
   error_msg: string;
@@ -27,6 +29,11 @@ export type LoginResponseDataType = {
 export type UserStoreDataType = {
   username: string;
   id: number;
+  profile: ProfileSettingsType;
   iat: number;
   exp: number;
+};
+
+export type ProfileSettingsType = {
+  theme: ThemeEnum;
 };

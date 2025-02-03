@@ -23,6 +23,7 @@ export class AuthController {
     return this.authService?.login(body);
   }
 
+  @UseGuards(AuthGuard)
   @Post('/update-username')
   updateUserName(
     @Headers('authorization') token: string,
@@ -35,8 +36,11 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('/profile')
-  getProfile() {
-    return;
+  @Get('/refresh-token')
+  getNewToken(@Headers('authorization') token: string) {
+    if (token.startsWith('Bearer ')) {
+      token = token.slice(7, token.length).trimLeft();
+    }
+    return this.authService?.getNewToken(token);
   }
 }

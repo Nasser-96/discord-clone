@@ -3,20 +3,31 @@
 import ComponentLoader from "@/components/shared/componentLoader";
 import "./globals.css";
 import { appRoutesObj } from "@/app-paths";
-import { getDecodeToken, isTokenExpired } from "@/core/helpers/helpers";
-import { useEffect } from "react";
+import {
+  getDecodeToken,
+  getTransitionClass,
+  isTokenExpired,
+  setUserDataFromToken,
+} from "@/core/helpers/helpers";
+import { use, useEffect } from "react";
 import useUserStore from "@/core/stores/user-store";
 import { useRouter, usePathname } from "next/navigation";
-import { DirectionEnum, LanguageEnum } from "@/core/types&enums/enums";
+import {
+  DirectionEnum,
+  LanguageEnum,
+  ThemeEnum,
+} from "@/core/types&enums/enums";
 import { I18nextProvider } from "react-i18next";
 import i18next from "../core/utils/i18n";
+import SharedLayout from "@/components/shared-layout/shared-layout";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { setUserData, userData } = useUserStore();
+  const { userData, token } = useUserStore();
+  const isLight = userData?.profile?.theme === ThemeEnum.LIGHT;
   const navigate = useRouter();
   const location = usePathname();
 
@@ -29,34 +40,48 @@ export default function RootLayout({
     // Check if the token is expired or not
     // If the token is not expired, set the user data
     // If the token is expired or not found, navigate to the login page
-    const token = localStorage.getItem("access_token") ?? "";
-
-    if (token && !isTokenExpired(token)) {
-      setUserData(getDecodeToken(token));
+    const newToken = localStorage.getItem("access_token") ?? "";
+    if (newToken && !isTokenExpired(newToken)) {
+      setUserDataFromToken(newToken);
     } else {
       if (location !== appRoutesObj.shared?.getLoginPagePath()) {
+        localStorage?.removeItem("access_token");
         navigate.push(appRoutesObj.shared?.getLoginPagePath());
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (token && !isTokenExpired(token)) {
+      setUserDataFromToken(token);
+    }
+  }, [token]);
 
   const renderComponent = () => {
     if (
       !userData?.username &&
       location !== appRoutesObj.shared?.getLoginPagePath()
     ) {
+      // waiting for user data to be set
       return <ComponentLoader />;
     } else {
-      return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>;
+      return (
+        <I18nextProvider i18n={i18next}>
+          <div className="flex items-start justify-start w-full h-screen">
+            <SharedLayout />
+            {children}
+          </div>
+        </I18nextProvider>
+      );
     }
   };
 
   return (
-    <html lang="en">
-      <body>
+    <html>
+      <body className={`${isLight ? "" : "dark"}`}>
         <main
           dir={dir}
-          className={`min-h-screen w-full flex items-center justify-center bg-slate-900`}
+          className={`min-h-screen w-full p-2 flex items-center justify-center dark:bg-slate-900 ${getTransitionClass}`}
         >
           {renderComponent()}
         </main>

@@ -1,8 +1,6 @@
-import axios from "axios";
 import { AxiosMethods } from "../types&enums/enums";
 import GetBackendUrl from "../helpers/backend-url";
-
-const axiosObject = axios.create();
+import axiosObject from "./axiosObject";
 
 export type MakeRequest = {
   url: string;
