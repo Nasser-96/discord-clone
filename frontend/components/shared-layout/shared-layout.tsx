@@ -33,7 +33,7 @@ export default function SharedLayout() {
   };
 
   return (
-    <div className="flex flex-col w-fit h-full justify-start items-start">
+    <div className="flex flex-col w-fit h-full justify-start items-start min-h-screen">
       <Button
         isLoading={isLoading}
         onClick={() => {

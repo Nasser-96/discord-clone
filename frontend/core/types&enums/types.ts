@@ -1,4 +1,4 @@
-import { ThemeEnum } from "./enums";
+import { LanguageEnum, ThemeEnum } from "./enums";
 
 export type ReturnResponseType<T> = {
   is_successful: boolean;
@@ -36,4 +36,8 @@ export type UserStoreDataType = {
 
 export type ProfileSettingsType = {
   theme: ThemeEnum;
+  preferred_language: LanguageEnum;
+  email: string;
+  image_url: string;
+  name: string;
 };

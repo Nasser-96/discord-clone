@@ -1,4 +1,4 @@
-import { ThemeEnum } from '@prisma/client';
+import { PreferredLanguageEnum, ThemeEnum } from '@prisma/client';
 import { Socket } from 'socket.io';
 
 export type AuthPayloadType = {
@@ -23,4 +23,16 @@ export type UserDataType = {
 
 export type ProfileSettingsType = {
   theme: ThemeEnum;
+  preferred_language: PreferredLanguageEnum;
+  name?: string;
+  image_url?: string;
+  email?: string;
+};
+
+export type UserTokenDataType = {
+  username: string;
+  id: string;
+  profile: ProfileSettingsType;
+  iat: number;
+  exp: number;
 };

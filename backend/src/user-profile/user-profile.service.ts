@@ -3,6 +3,8 @@ import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import ReturnResponse from 'src/helper/returnResponse';
+import { PreferredLanguageEnum, ThemeEnum } from 'src/types&enums/enum';
+import { UserTokenDataType } from 'src/types&enums/types';
 
 @Injectable()
 export class UserProfileService {
@@ -12,13 +14,29 @@ export class UserProfileService {
   ) {}
   async updateUserProfile(token: string, profileData: UpdateUserProfileDto) {
     try {
-      const decodedData = this.jwtService.verify(token, {
+      const decodedData: UserTokenDataType = this.jwtService.verify(token, {
         secret: process.env.JSON_TOKEN_KEY,
       });
 
-      const updatedProfile = await this.prismaService?.user_profile?.update({
-        where: { id: parseInt(decodedData?.id) },
-        data: { ...profileData },
+      const defaultValues: UpdateUserProfileDto = {
+        preferred_language:
+          decodedData?.profile?.preferred_language ?? PreferredLanguageEnum?.EN,
+        theme: decodedData?.profile?.theme ?? ThemeEnum.DARK,
+        email: decodedData?.profile?.email ? decodedData?.profile?.email : '',
+        image_url: decodedData?.profile?.image_url
+          ? decodedData?.profile?.image_url
+          : '',
+        name: decodedData?.profile?.name ? decodedData?.profile?.name : '',
+      };
+
+      const updatedProfile = await this.prismaService?.profile?.upsert({
+        where: { user_id: parseInt(decodedData?.id) },
+        update: { ...profileData },
+        create: {
+          ...defaultValues,
+          ...profileData,
+          user_id: parseInt(decodedData?.id),
+        },
       });
 
       return ReturnResponse({

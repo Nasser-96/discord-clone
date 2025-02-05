@@ -23,6 +23,7 @@ export const isTokenExpired = (token: string): boolean => {
 
 export const setUserDataFromToken = (token: string) => {
   const decodedToken = getDecodeToken(token);
+
   getUserStore()?.setToken(token);
   localStorage.setItem("access_token", token);
   getUserStore()?.setUserData(decodedToken);

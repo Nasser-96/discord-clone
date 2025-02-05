@@ -7,8 +7,9 @@ import ReturnResponse from 'src/helper/returnResponse';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ThemeEnum } from 'src/types&enums/enum';
+import { PreferredLanguageEnum, ThemeEnum } from 'src/types&enums/enum';
 import { UserDataType } from 'src/types&enums/types';
+import { UpdateUserProfileDto } from 'src/user-profile/dto/update-user-profile.dto';
 
 interface SignupParams {
   password: string;
@@ -28,7 +29,7 @@ export class AuthService {
   ) {}
 
   async signup({ username, password }: SignupParams) {
-    const userExists = await this.prismaService.user_data.findUnique({
+    const userExists = await this.prismaService.user.findUnique({
       where: {
         username,
       },
@@ -44,14 +45,21 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const defaultValues: UpdateUserProfileDto = {
+      theme: ThemeEnum.DARK,
+      preferred_language: PreferredLanguageEnum.EN,
+      email: '',
+      image_url: '',
+      name: '',
+    };
 
-    const user = await this.prismaService?.user_data.create({
+    const user = await this.prismaService?.user.create({
       data: {
         username: username,
         password: hashedPassword,
         user_profile: {
           create: {
-            theme: ThemeEnum.LIGHT,
+            ...defaultValues,
           },
         },
       },
@@ -86,12 +94,20 @@ export class AuthService {
   }
 
   async login({ username, password }: LoginParams) {
-    const getUserByEmail = await this.prismaService.user_data.findUnique({
+    const getUserByEmail = await this.prismaService.user.findUnique({
       where: {
         username,
       },
       include: {
-        user_profile: true,
+        user_profile: {
+          select: {
+            email: true,
+            image_url: true,
+            name: true,
+            preferred_language: true,
+            theme: true,
+          },
+        },
       },
     });
 
@@ -113,7 +129,7 @@ export class AuthService {
         id: getUserByEmail?.id?.toString(),
         username: getUserByEmail?.username,
         profile: {
-          theme: getUserByEmail?.user_profile?.theme,
+          ...getUserByEmail?.user_profile,
         },
       };
       const token = await this.generateJWT(userData);
@@ -134,7 +150,7 @@ export class AuthService {
       secret: process.env.JSON_TOKEN_KEY,
     });
 
-    await this.prismaService.user_data.update({
+    await this.prismaService.user.update({
       where: { id: decodedData.id },
       data: { username: newName },
     });
@@ -145,7 +161,7 @@ export class AuthService {
       secret: process.env.JSON_TOKEN_KEY,
     });
 
-    const getUserById = await this.prismaService.user_data.findUnique({
+    const getUserById = await this.prismaService.user.findUnique({
       where: {
         id: parseInt(decodedData?.id),
       },
@@ -157,7 +173,9 @@ export class AuthService {
     });
     const newData: UserDataType = {
       id: getUserById?.id?.toString(),
-      profile: getUserById?.user_profile,
+      profile: {
+        ...getUserById?.user_profile,
+      },
       username: getUserById?.username,
     };
     const newToken = await this.generateJWT({ ...newData });

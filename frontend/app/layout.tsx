@@ -17,7 +17,7 @@ import {
   LanguageEnum,
   ThemeEnum,
 } from "@/core/types&enums/enums";
-import { I18nextProvider } from "react-i18next";
+import { I18nextProvider, useTranslation } from "react-i18next";
 import i18next from "../core/utils/i18n";
 import SharedLayout from "@/components/shared-layout/shared-layout";
 
@@ -27,6 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const { userData, token } = useUserStore();
+  const { i18n } = useTranslation();
   const isLight = userData?.profile?.theme === ThemeEnum.LIGHT;
   const navigate = useRouter();
   const location = usePathname();
@@ -42,6 +43,8 @@ export default function RootLayout({
     // If the token is expired or not found, navigate to the login page
     const newToken = localStorage.getItem("access_token") ?? "";
     if (newToken && !isTokenExpired(newToken)) {
+      const decodedToken = getDecodeToken(newToken);
+      i18n.changeLanguage(decodedToken?.profile?.preferred_language);
       setUserDataFromToken(newToken);
     } else {
       if (location !== appRoutesObj.shared?.getLoginPagePath()) {
@@ -67,7 +70,7 @@ export default function RootLayout({
     } else {
       return (
         <I18nextProvider i18n={i18next}>
-          <div className="flex items-start justify-start w-full h-screen">
+          <div className="flex items-start justify-start w-full">
             <SharedLayout />
             {children}
           </div>
