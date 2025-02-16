@@ -22,7 +22,6 @@ export class UserProfileService {
         preferred_language:
           decodedData?.profile?.preferred_language ?? PreferredLanguageEnum?.EN,
         theme: decodedData?.profile?.theme ?? ThemeEnum.DARK,
-        email: decodedData?.profile?.email ? decodedData?.profile?.email : '',
         image_url: decodedData?.profile?.image_url
           ? decodedData?.profile?.image_url
           : '',
@@ -49,5 +48,51 @@ export class UserProfileService {
         ReturnResponse({ error_msg: "You can't update this profile" }),
       );
     }
+  }
+
+  async getUserProfileService(token: string) {
+    const decodedData: UserTokenDataType = this.jwtService.verify(token, {
+      secret: process.env.JSON_TOKEN_KEY,
+    });
+
+    const userProfile = await this.prismaService?.profile?.findUnique({
+      where: { user_id: decodedData?.id },
+      select: {
+        id: true,
+        email: true,
+        image_url: true,
+        theme: true,
+        created_at: true,
+        user_data: {
+          select: {
+            channels: true,
+            password: false,
+            username: true,
+            created_at: true,
+            id: true,
+          },
+        },
+        name: true,
+        preferred_language: true,
+        updated_at: true,
+      },
+    });
+
+    const userServer = await this.prismaService?.server?.findFirst({
+      select: {
+        id: true,
+        name: true,
+        image_url: true,
+        created_at: true,
+        updated_at: true,
+        invite_code: true,
+      },
+      where: { members: { some: { user_id: decodedData?.id } } },
+    });
+
+    return ReturnResponse({
+      is_successful: true,
+      response: { profile: userProfile, server: userServer },
+    });
   }
 }

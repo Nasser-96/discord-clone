@@ -9,6 +9,7 @@ export type UserStoreType = {
   token: string;
   setUserData: (data: UserStoreDataType) => void;
   setToken: (token: string) => void;
+  logout: () => void;
 };
 
 const useUserStore = create<UserStoreType>((set) => ({
@@ -24,6 +25,14 @@ const useUserStore = create<UserStoreType>((set) => ({
     set((state) => {
       return { ...state, token };
     });
+  },
+
+  logout: () => {
+    set((state) => {
+      return { ...state, userData: {} as UserStoreDataType, token: "" };
+    });
+
+    localStorage.removeItem("access_token");
   },
 }));
 

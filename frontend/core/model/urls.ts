@@ -4,6 +4,6 @@ export const urls = {
     refreshToken: "auth/refresh-token",
   },
   userProfile: {
-    update: "user-profile",
+    userProfile: "user-profile",
   },
 };

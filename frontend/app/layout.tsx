@@ -9,7 +9,7 @@ import {
   isTokenExpired,
   setUserDataFromToken,
 } from "@/core/helpers/helpers";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import useUserStore from "@/core/stores/user-store";
 import { useRouter, usePathname } from "next/navigation";
 import {
@@ -52,7 +52,7 @@ export default function RootLayout({
         navigate.push(appRoutesObj.shared?.getLoginPagePath());
       }
     }
-  }, []);
+  }, [userData?.username]);
 
   useEffect(() => {
     if (token && !isTokenExpired(token)) {
@@ -71,7 +71,7 @@ export default function RootLayout({
       return (
         <I18nextProvider i18n={i18next}>
           <div className="flex items-start justify-start w-full">
-            <SharedLayout />
+            {userData?.username && <SharedLayout />}
             {children}
           </div>
         </I18nextProvider>
@@ -84,7 +84,7 @@ export default function RootLayout({
       <body className={`${isLight ? "" : "dark"}`}>
         <main
           dir={dir}
-          className={`min-h-screen w-full p-2 flex items-center justify-center dark:bg-slate-900 ${getTransitionClass}`}
+          className={`min-h-screen w-full p-2 flex items-center justify-center text-slate-900 dark:text-white dark:bg-slate-900 ${getTransitionClass}`}
         >
           {renderComponent()}
         </main>

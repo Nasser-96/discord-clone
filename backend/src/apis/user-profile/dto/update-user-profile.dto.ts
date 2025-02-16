@@ -13,5 +13,5 @@ export class UpdateUserProfileDto {
   @IsString()
   image_url: string;
   @IsString()
-  email: string;
+  email?: string;
 }

@@ -26,7 +26,7 @@ model Profile {
   user_id                       String     @unique
   name                          String  
   image_url                     String  @db.Text
-  email                         String  @db.Text @unique
+  email                         String?  @db.Text @unique 
   theme                         ThemeEnum  @default(LIGHT)
   preferred_language            PreferredLanguageEnum @default(en)
   created_at                    DateTime @default(now())

@@ -20,15 +20,22 @@ export class UserProfileController {
 
   @UseGuards(AuthGuard)
   @Put('')
-  updateUserTheme(
+  updateUserProfile(
     @Body() profileData: UpdateUserProfileDto,
     @Headers('authorization') token: string,
   ) {
-    console.log('profileData', profileData);
-
     if (token.startsWith('Bearer ')) {
       token = token.slice(7, token.length).trimLeft();
     }
     return this.userProfileService?.updateUserProfile(token, profileData);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('')
+  getUserProfile(@Headers('authorization') token: string) {
+    if (token.startsWith('Bearer ')) {
+      token = token.slice(7, token.length).trimLeft();
+    }
+    return this.userProfileService?.getUserProfileService(token);
   }
 }

@@ -14,7 +14,7 @@ export const loginService = async (data: LoginRequestType) => {
 export const updateProfileService = async (data: ProfileSettingsType) => {
   return makeRequest({
     method: AxiosMethods.PUT,
-    url: urls?.userProfile?.update,
+    url: urls?.userProfile?.userProfile,
     data: data,
   });
 };
@@ -23,5 +23,12 @@ export const updateTokenService = async () => {
   return makeRequest({
     method: AxiosMethods.GET,
     url: urls?.auth?.refreshToken,
+  });
+};
+
+export const getUserProfileService = async () => {
+  return makeRequest({
+    method: AxiosMethods.GET,
+    url: urls?.userProfile?.userProfile,
   });
 };

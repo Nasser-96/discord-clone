@@ -2,6 +2,7 @@
 import useUserStore from "@/core/stores/user-store";
 import Button from "../shared/button";
 import { IoIosSunny } from "@react-icons/all-files/io/IoIosSunny";
+import { IoLogOutOutline } from "@react-icons/all-files/io5/IoLogOutOutline";
 import { IoIosMoon } from "@react-icons/all-files/io/IoIosMoon";
 import { ThemeEnum } from "@/core/types&enums/enums";
 import { updateProfileService } from "@/core/model/services";
@@ -13,7 +14,7 @@ import {
 import { updateToken } from "@/core/helpers/helpers";
 
 export default function SharedLayout() {
-  const { userData } = useUserStore();
+  const { userData, logout } = useUserStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const isDark = userData?.profile?.theme === ThemeEnum.DARK;
 
@@ -32,8 +33,12 @@ export default function SharedLayout() {
     setIsLoading(false);
   };
 
+  const logoutAction = () => {
+    logout();
+  };
+
   return (
-    <div className="flex flex-col w-fit h-full justify-start items-start min-h-screen">
+    <div className="flex flex-col gap-3 w-fit h-full justify-start items-start min-h-screen">
       <Button
         isLoading={isLoading}
         onClick={() => {
@@ -41,6 +46,14 @@ export default function SharedLayout() {
         }}
       >
         {isDark ? <IoIosSunny /> : <IoIosMoon />}
+      </Button>
+      <Button
+        isLoading={isLoading}
+        onClick={() => {
+          logoutAction();
+        }}
+      >
+        <IoLogOutOutline />
       </Button>
     </div>
   );

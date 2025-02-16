@@ -35,6 +35,14 @@ class SharedRoutes {
   getLoginPagePath(): string {
     return "/login";
   }
+
+  getServersPath(): string {
+    return "/servers";
+  }
+
+  getServerPath(serverId: string): string {
+    return this.getServersPath() + `/${serverId}`;
+  }
 }
 
 export const appRoutesObj = AppRoutes.getInstance();

@@ -41,3 +41,34 @@ export type ProfileSettingsType = {
   image_url: string;
   name: string;
 };
+
+export type UserProfileServerType = {
+  id: string;
+  name: string;
+  image_url: string;
+  created_at: string;
+  updated_at: string;
+  invite_code: string;
+};
+
+export type UserProfileType = {
+  id: string;
+  email: string;
+  image_url: string;
+  theme: ThemeEnum;
+  created_at: string;
+  user_data: {
+    channels: [];
+    username: string;
+    created_at: string;
+    id: string;
+  };
+  name: true;
+  preferred_language: LanguageEnum;
+  updated_at: string;
+};
+
+export type UserProfileResponseType = {
+  profile: UserProfileType;
+  server: UserProfileServerType | null;
+};

@@ -59,6 +59,7 @@ export default function LoginContainer() {
           placeholder={t("username")}
           type="text"
           name="username"
+          className="text-slate-900"
           onChange={formik.handleChange}
           error={
             formik.touched.username && formik.errors.username
@@ -71,6 +72,7 @@ export default function LoginContainer() {
           placeholder={t("password")}
           type="password"
           name="password"
+          className="text-slate-900"
           error={
             formik.touched.password && formik.errors.password
               ? formik.errors.password
