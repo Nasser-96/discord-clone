@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferredLanguageEnum, ThemeEnum } from 'src/types&enums/enum';
 import { UserDataType } from 'src/types&enums/types';
-import { UpdateUserProfileDto } from 'src/user-profile/dto/update-user-profile.dto';
+import { UpdateUserProfileDto } from '../user-profile/dto/update-user-profile.dto';
 
 interface SignupParams {
   password: string;
@@ -163,7 +163,7 @@ export class AuthService {
 
     const getUserById = await this.prismaService.user.findUnique({
       where: {
-        id: parseInt(decodedData?.id),
+        id: decodedData?.id,
       },
       select: {
         id: true,

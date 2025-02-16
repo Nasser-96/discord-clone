@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { UserProfileService } from './user-profile.service';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('user-profile')
 export class UserProfileController {
@@ -21,9 +21,11 @@ export class UserProfileController {
   @UseGuards(AuthGuard)
   @Put('')
   updateUserTheme(
-    @Headers('authorization') token: string,
     @Body() profileData: UpdateUserProfileDto,
+    @Headers('authorization') token: string,
   ) {
+    console.log('profileData', profileData);
+
     if (token.startsWith('Bearer ')) {
       token = token.slice(7, token.length).trimLeft();
     }

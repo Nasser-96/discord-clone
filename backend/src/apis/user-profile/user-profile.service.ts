@@ -30,12 +30,12 @@ export class UserProfileService {
       };
 
       const updatedProfile = await this.prismaService?.profile?.upsert({
-        where: { user_id: parseInt(decodedData?.id) },
+        where: { user_id: decodedData?.id },
         update: { ...profileData },
         create: {
           ...defaultValues,
           ...profileData,
-          user_id: parseInt(decodedData?.id),
+          user_id: decodedData?.id,
         },
       });
 

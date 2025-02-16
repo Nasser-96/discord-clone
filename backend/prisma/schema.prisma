@@ -9,18 +9,21 @@ datasource db {
 
 // each model SHOULD have created_at and updated_at
 model User  {
-  id                            Int @id @default(autoincrement())
+  id                            String @id @default(uuid())
   username                      String @unique
   password                      String
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
 
   user_profile Profile?
+  servers Server[]
+  members Member[]
+  channels Channel[]
 }
 
 model Profile {
-  id                            Int     @id @default(autoincrement())
-  user_id                       Int     @unique
+  id                            String     @id @default(uuid())
+  user_id                       String     @unique
   name                          String  
   image_url                     String  @db.Text
   email                         String  @db.Text @unique
@@ -32,6 +35,60 @@ model Profile {
   user_data User @relation(fields: [user_id], references: [id], onDelete: Cascade) // One-to-One Relationship
 }
 
+model Server {
+  id                            String     @id @default(uuid())
+  name                          String
+  image_url                     String     @db.Text
+  invite_code                   String     @db.Text
+  created_at                    DateTime @default(now())
+  updated_at                    DateTime @updatedAt
+
+  user_id                       String     @unique
+  user User  @relation(fields: [user_id],references: [id],onDelete: Cascade)
+
+  members Member[]
+  channels Channel[]
+
+  @@index([user_id])
+}
+
+model Member{
+  id                            String     @id @default(uuid())
+  role                          MemberRole @default(GUEST)
+  created_at                    DateTime @default(now())
+  updated_at                    DateTime @updatedAt
+
+  user_id                       String     @unique
+  user User  @relation(fields: [user_id],references: [id],onDelete: Cascade)
+
+  server_id                     String
+  server Server @relation(fields: [server_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([server_id])
+}
+
+model Channel {
+  id                            String     @id @default(uuid())
+  name                          String
+  type                          ChannelType @default(TEXT)
+  created_at                    DateTime @default(now())
+  updated_at                    DateTime @updatedAt
+
+  user_id                       String     @unique
+  user User  @relation(fields: [user_id],references: [id],onDelete: Cascade)
+
+  server_id                     String
+  server Server @relation(fields: [server_id], references: [id], onDelete: Cascade)
+  @@index([server_id])
+  @@index([user_id])
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
 
 enum ThemeEnum {
   LIGHT
@@ -42,3 +99,10 @@ enum PreferredLanguageEnum {
   en
   ar
 }
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
+

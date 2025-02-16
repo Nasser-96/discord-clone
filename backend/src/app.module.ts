@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { SocketModule } from './socket/socket.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AppGateway } from './socket/socket.gateway';
-import { UserProfileModule } from './user-profile/user-profile.module';
+import { UserProfileModule } from './apis/user-profile/user-profile.module';
+import { AuthModule } from './apis/auth/auth.module';
 
 @Module({
   imports: [
