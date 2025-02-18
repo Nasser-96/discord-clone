@@ -6,4 +6,7 @@ export const urls = {
   userProfile: {
     userProfile: "user-profile",
   },
+  uploadModel: {
+    upload: "upload",
+  },
 };

@@ -16,6 +16,7 @@ import { getDecodeToken } from "../../core/helpers/helpers";
 import { appRoutesObj } from "../../app-paths";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { ButtonSizeEnum, ButtonVariantsEnum } from "@/core/types&enums/enums";
 
 export default function LoginContainer() {
   const { t } = useTranslation();
@@ -61,6 +62,7 @@ export default function LoginContainer() {
           name="username"
           className="text-slate-900"
           onChange={formik.handleChange}
+          value={formik.values.username}
           error={
             formik.touched.username && formik.errors.username
               ? formik.errors.username
@@ -73,6 +75,7 @@ export default function LoginContainer() {
           type="password"
           name="password"
           className="text-slate-900"
+          value={formik.values.password}
           error={
             formik.touched.password && formik.errors.password
               ? formik.errors.password
@@ -80,7 +83,11 @@ export default function LoginContainer() {
           }
           onChange={formik.handleChange}
         />
-        <Button className="w-full" type="submit">
+        <Button
+          variant={ButtonVariantsEnum.OUTLINE}
+          className="w-full"
+          type="submit"
+        >
           {t("login")}
         </Button>
       </form>

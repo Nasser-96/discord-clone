@@ -4,5 +4,11 @@
   "error.required": "هذا الحقل مطلوب",
   "username": "اسم المستخدم",
   "password": "كلمة المرور",
-  "login": "تسجيل الدخول"
+  "login": "تسجيل الدخول",
+  "shared.create": "إنشاء",
+  "components.CreateServerModal.title": "خصص الخادم الخاص بك",
+  "components.CreateServerModal.subTitle": "امنح خادمك شخصية باسم وصورة. يمكنك دائمًا تغييرها لاحقًا.",
+  "components.CreateServerModal.nameLabel": "اسم الخادم",
+  "components.CreateServerModal.namePlaceholder": "أدخل اسم الخادم",
+  "components.UploadImage.title": "تحميل صورة"
 }

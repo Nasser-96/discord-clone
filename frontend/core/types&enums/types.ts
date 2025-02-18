@@ -72,3 +72,12 @@ export type UserProfileResponseType = {
   profile: UserProfileType;
   server: UserProfileServerType | null;
 };
+
+export type CreateServerRequestType = {
+  name: string;
+  image_url: string;
+};
+
+export type UploadImageResponseType = {
+  image_url: string;
+};

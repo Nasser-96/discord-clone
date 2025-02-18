@@ -7,6 +7,19 @@ const nextConfig: NextConfig = {
     defaultLocale: "en",
     localeDetection: false,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
+    ],
+    domains: ["localhost"], // Add specific domains if needed
+  },
 };
 
 export default nextConfig;

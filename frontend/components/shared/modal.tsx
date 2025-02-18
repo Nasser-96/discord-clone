@@ -86,7 +86,7 @@ export function Modal({
         ref={modalRef}
       >
         <div
-          className={`max-h-800 !bg-modal-color relative bottom-0 mx-auto mt-10 w-11/12 max-w-lg rounded-2xl p-5 shadow-lg transition-all duration-500 sm:p-8 ${getModalSizeClass()} dark:bg-dark border bg-white dark:border-0 ${
+          className={`max-h-800 !bg-modal-color relative bottom-0 mx-auto mt-10 w-11/12 max-w-lg rounded-2xl p-5 shadow-lg transition-all duration-500 sm:p-8 ${getModalSizeClass()} dark:bg-slate-900 border bg-white dark:border-0 ${
             img ? "" : "overflow-y-auto"
           } ${isModalAnimationDone ? "scale-100" : "scale-0"} ${extraClasses}`}
         >

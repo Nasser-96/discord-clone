@@ -20,3 +20,21 @@ export enum ThemeEnum {
   LIGHT = "LIGHT",
   DARK = "DARK",
 }
+
+export enum ButtonVariantsEnum {
+  // DEFAULT = "DEFAULT",
+  PRIMARY = "PRIMARY",
+  // DESTRUCTIVE = "DESTRUCTIVE",
+  OUTLINE = "OUTLINE",
+  // SECONDARY = "SECONDARY",
+  // GHOST = "GHOST",
+  NONE = "NONE",
+  // LINK = "LINK",
+}
+
+export enum ButtonSizeEnum {
+  SM = "SM",
+  LG = "LG",
+  DEFAULT = "DEFAULT",
+  ICON = "ICON",
+}

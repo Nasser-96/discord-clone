@@ -4,7 +4,11 @@ import Button from "../shared/button";
 import { IoIosSunny } from "@react-icons/all-files/io/IoIosSunny";
 import { IoLogOutOutline } from "@react-icons/all-files/io5/IoLogOutOutline";
 import { IoIosMoon } from "@react-icons/all-files/io/IoIosMoon";
-import { ThemeEnum } from "@/core/types&enums/enums";
+import {
+  ButtonSizeEnum,
+  ButtonVariantsEnum,
+  ThemeEnum,
+} from "@/core/types&enums/enums";
 import { updateProfileService } from "@/core/model/services";
 import { useState } from "react";
 import {
@@ -41,6 +45,8 @@ export default function SharedLayout() {
     <div className="flex flex-col gap-3 w-fit h-full justify-start items-start min-h-screen">
       <Button
         isLoading={isLoading}
+        variant={ButtonVariantsEnum.OUTLINE}
+        size={ButtonSizeEnum.SM}
         onClick={() => {
           updateUserTheme();
         }}
@@ -48,7 +54,8 @@ export default function SharedLayout() {
         {isDark ? <IoIosSunny /> : <IoIosMoon />}
       </Button>
       <Button
-        isLoading={isLoading}
+        variant={ButtonVariantsEnum.OUTLINE}
+        size={ButtonSizeEnum.SM}
         onClick={() => {
           logoutAction();
         }}

@@ -14,7 +14,7 @@ export default function InputField({ error = "", ...props }: InputFieldProps) {
 
   return (
     <div className="w-full h-full">
-      <label className="block font-medium text-gray-100">
+      <label className="block font-medium dark:text-gray-100">
         {props["aria-label"]}
       </label>
       <div className="flex flex-col gap-1">

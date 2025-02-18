@@ -7,6 +7,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { AppGateway } from './socket/socket.gateway';
 import { UserProfileModule } from './apis/user-profile/user-profile.module';
 import { AuthModule } from './apis/auth/auth.module';
+import { UploadModule } from './apis/upload/upload.module';
+import { UploadController } from './apis/upload/upload.controller';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { AuthModule } from './apis/auth/auth.module';
     JwtModule.register({
       secret: process.env.JSON_TOKEN_KEY,
     }),
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppGateway],

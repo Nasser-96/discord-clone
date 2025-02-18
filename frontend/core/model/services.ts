@@ -32,3 +32,17 @@ export const getUserProfileService = async () => {
     url: urls?.userProfile?.userProfile,
   });
 };
+
+export const uploadImageService = async (image: File) => {
+  const formData = new FormData();
+  formData.append("image", image);
+
+  return makeRequest({
+    method: AxiosMethods.POST,
+    url: urls?.uploadModel.upload,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    data: formData,
+  });
+};
