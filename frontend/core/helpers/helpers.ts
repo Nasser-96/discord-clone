@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import { updateTokenService } from "../model/services";
 import useUserStore from "../stores/user-store";
 import { ReturnResponseType, UserStoreDataType } from "../types&enums/types";
@@ -27,6 +28,7 @@ export const setUserDataFromToken = (token: string) => {
   getUserStore()?.setToken(token);
   localStorage.setItem("access_token", token);
   getUserStore()?.setUserData(decodedToken);
+  i18next.changeLanguage(decodedToken?.profile?.preferred_language);
 };
 
 export const updateToken = async () => {

@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 export default function HomeContainer() {
   const [userProfile, setUserProfile] = useState<UserProfileResponseType>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const fetchUserProfile = async () => {
@@ -22,8 +22,18 @@ export default function HomeContainer() {
     try {
       const newUserProfile: ReturnResponseType<UserProfileResponseType> =
         await getUserProfileService();
+      if (newUserProfile?.response?.server?.id) {
+        router.push(
+          appRoutesObj.shared.getServerPath(
+            newUserProfile?.response?.server?.id
+          )
+        );
+      } else {
+        setIsModalOpen(true);
+      }
       setUserProfile(newUserProfile.response);
     } catch (e) {
+      setIsModalOpen(true);
       console.log(e);
     }
     setIsLoading(false);
@@ -37,14 +47,6 @@ export default function HomeContainer() {
     fetchUserProfile();
   }, []);
 
-  useEffect(() => {
-    if (userProfile?.server?.id) {
-      router?.push(
-        appRoutesObj?.shared?.getServerPath(userProfile?.server?.id)
-      );
-    }
-  }, [userProfile?.server?.id]);
-
   if (isLoading) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center">
@@ -52,5 +54,9 @@ export default function HomeContainer() {
       </div>
     );
   }
-  return isModalOpen ? <CreateServerModal closeModal={closeModal} /> : <></>;
+  return isModalOpen ? (
+    <CreateServerModal shouldRedirect closeModal={closeModal} />
+  ) : (
+    <></>
+  );
 }

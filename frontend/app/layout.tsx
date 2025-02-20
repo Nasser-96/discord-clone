@@ -71,8 +71,14 @@ export default function RootLayout({
       return (
         <I18nextProvider i18n={i18next}>
           <div className="flex items-start justify-start w-full">
-            {userData?.username && <SharedLayout />}
-            {children}
+            {userData?.username && (
+              <div
+                className={`hidden md:flex h-full items-center w-[72px] z-30 flex-col fixed inset-y-0 bg-gray-100 dark:bg-slate-950 ${getTransitionClass}`}
+              >
+                <SharedLayout />
+              </div>
+            )}
+            <div className="md:ps-20 w-full h-full">{children}</div>
           </div>
         </I18nextProvider>
       );
@@ -84,7 +90,7 @@ export default function RootLayout({
       <body className={`${isLight ? "" : "dark"}`}>
         <main
           dir={dir}
-          className={`min-h-screen w-full p-2 flex items-center justify-center text-slate-900 dark:text-white dark:bg-slate-900 ${getTransitionClass}`}
+          className={`min-h-screen w-full flex justify-center text-slate-900 dark:text-white dark:bg-slate-900 ${getTransitionClass}`}
         >
           {renderComponent()}
         </main>

@@ -16,6 +16,13 @@ export enum DirectionEnum {
   LTR = "ltr",
 }
 
+export enum PositionEnum {
+  Top = "top",
+  Bottom = "bottom",
+  Right = "right",
+  Left = "left",
+}
+
 export enum ThemeEnum {
   LIGHT = "LIGHT",
   DARK = "DARK",
@@ -24,7 +31,7 @@ export enum ThemeEnum {
 export enum ButtonVariantsEnum {
   // DEFAULT = "DEFAULT",
   PRIMARY = "PRIMARY",
-  // DESTRUCTIVE = "DESTRUCTIVE",
+  DESTRUCTIVE = "DESTRUCTIVE",
   OUTLINE = "OUTLINE",
   // SECONDARY = "SECONDARY",
   // GHOST = "GHOST",
@@ -37,4 +44,10 @@ export enum ButtonSizeEnum {
   LG = "LG",
   DEFAULT = "DEFAULT",
   ICON = "ICON",
+}
+
+export enum ChannelType {
+  TEXT = "TEXT",
+  AUDIO = "AUDIO",
+  VIDEO = "VIDEO",
 }

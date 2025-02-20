@@ -10,5 +10,7 @@
   "components.CreateServerModal.subTitle": "Give your server a personality with name and image. You can always change it later.",
   "components.CreateServerModal.nameLabel": "Server Name",
   "components.CreateServerModal.namePlaceholder": "Enter server name",
-  "components.UploadImage.title": "Upload Image"
+  "components.UploadImage.title": "Upload Image",
+  "component.SharedLayout.addServer": "Add Server",
+  "component.SharedLayout.language": "AR"
 }

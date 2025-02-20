@@ -48,7 +48,6 @@ export class AuthService {
     const defaultValues: UpdateUserProfileDto = {
       theme: ThemeEnum.DARK,
       preferred_language: PreferredLanguageEnum.EN,
-      email: '',
       image_url: '',
       name: '',
     };
@@ -110,6 +109,8 @@ export class AuthService {
         },
       },
     });
+
+    console.log(getUserByEmail);
 
     if (!getUserByEmail) {
       throw new UnauthorizedException(

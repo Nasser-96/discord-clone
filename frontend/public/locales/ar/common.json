@@ -10,5 +10,7 @@
   "components.CreateServerModal.subTitle": "امنح خادمك شخصية باسم وصورة. يمكنك دائمًا تغييرها لاحقًا.",
   "components.CreateServerModal.nameLabel": "اسم الخادم",
   "components.CreateServerModal.namePlaceholder": "أدخل اسم الخادم",
-  "components.UploadImage.title": "تحميل صورة"
+  "components.UploadImage.title": "تحميل صورة",
+  "component.SharedLayout.addServer": "إضافة خادم",
+  "component.SharedLayout.language": "EN"
 }

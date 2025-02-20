@@ -10,6 +10,11 @@ export default {
   ],
   theme: {
     extend: {
+      clipPath: {
+        "clip-bottom": "polygon(50% 0, 100% 100%, 0 100%)",
+        "clip-top": "polygon(0 0, 50% 100%, 100% 0)", // Example for top clipping
+        "clip-diagonal": "polygon(0 0, 100% 50%, 0 100%)",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

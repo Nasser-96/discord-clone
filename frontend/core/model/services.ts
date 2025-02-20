@@ -1,6 +1,10 @@
 import { makeRequest } from "../axios/axios";
 import { AxiosMethods } from "../types&enums/enums";
-import { LoginRequestType, ProfileSettingsType } from "../types&enums/types";
+import {
+  CreateServerRequestType,
+  LoginRequestType,
+  ProfileSettingsType,
+} from "../types&enums/types";
 import { urls } from "./urls";
 
 export const loginService = async (data: LoginRequestType) => {
@@ -44,5 +48,27 @@ export const uploadImageService = async (image: File) => {
       "Content-Type": "multipart/form-data",
     },
     data: formData,
+  });
+};
+
+export const createServerService = async (data: CreateServerRequestType) => {
+  return makeRequest({
+    method: AxiosMethods.POST,
+    url: urls?.serverModel?.server,
+    data: data,
+  });
+};
+
+export const getUserServersService = async () => {
+  return makeRequest({
+    method: AxiosMethods.GET,
+    url: urls?.serverModel?.server,
+  });
+};
+
+export const getServerByIdService = async (serverId: string) => {
+  return makeRequest({
+    method: AxiosMethods.GET,
+    url: urls?.serverModel?.serverById(serverId),
   });
 };

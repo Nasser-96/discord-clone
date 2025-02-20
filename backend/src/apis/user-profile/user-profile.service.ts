@@ -12,12 +12,11 @@ export class UserProfileService {
     private readonly prismaService: PrismaService,
     private jwtService: JwtService,
   ) {}
-  async updateUserProfile(token: string, profileData: UpdateUserProfileDto) {
+  async updateUserProfile(
+    decodedData: UserTokenDataType,
+    profileData: UpdateUserProfileDto,
+  ) {
     try {
-      const decodedData: UserTokenDataType = this.jwtService.verify(token, {
-        secret: process.env.JSON_TOKEN_KEY,
-      });
-
       const defaultValues: UpdateUserProfileDto = {
         preferred_language:
           decodedData?.profile?.preferred_language ?? PreferredLanguageEnum?.EN,
@@ -50,11 +49,7 @@ export class UserProfileService {
     }
   }
 
-  async getUserProfileService(token: string) {
-    const decodedData: UserTokenDataType = this.jwtService.verify(token, {
-      secret: process.env.JSON_TOKEN_KEY,
-    });
-
+  async getUserProfileService(decodedData: UserTokenDataType) {
     const userProfile = await this.prismaService?.profile?.findUnique({
       where: { user_id: decodedData?.id },
       select: {

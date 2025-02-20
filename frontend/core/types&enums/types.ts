@@ -1,4 +1,4 @@
-import { LanguageEnum, ThemeEnum } from "./enums";
+import { ChannelType, LanguageEnum, ThemeEnum } from "./enums";
 
 export type ReturnResponseType<T> = {
   is_successful: boolean;
@@ -80,4 +80,44 @@ export type CreateServerRequestType = {
 
 export type UploadImageResponseType = {
   image_url: string;
+};
+
+export type CreatedServerType = {
+  id: string;
+  name: string;
+  image_url: string;
+  invite_code: string;
+};
+
+export type ServerType = {
+  id: string;
+  name: string;
+  image_url: string;
+  invite_code: string;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
+};
+
+export type ServerMemberType = {
+  email: string;
+  image_url: string;
+  user_id: string;
+  username: string;
+};
+
+export type ServerChannelType = {
+  id: string;
+  name: string;
+  created_at: Date;
+  type: ChannelType;
+};
+
+export type ServerByIdRequestType = {
+  id: string;
+  name: string;
+  image_url: string;
+  invite_code: string;
+  members: ServerMemberType[];
+  channels: ServerChannelType[];
 };

@@ -9,4 +9,8 @@ export const urls = {
   uploadModel: {
     upload: "upload",
   },
+  serverModel: {
+    server: "server",
+    serverById: (serverId: string) => `server/${serverId}`,
+  },
 };

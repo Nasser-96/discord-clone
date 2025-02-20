@@ -24,6 +24,10 @@ export default function Button({
         className =
           "border dark:border-white border-black dark:text-white text-black hover:opacity-90";
         break;
+      case ButtonVariantsEnum.DESTRUCTIVE:
+        className =
+          "bg-red-500 hover:bg-red-500/90 text-white dark:bg-red-500 dark:hover:bg-red-500/90";
+        break;
     }
     return className;
   };

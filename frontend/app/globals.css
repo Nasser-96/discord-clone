@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.clip-bottom {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.clip-top {
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.clip-right {
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.clip-left {
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}

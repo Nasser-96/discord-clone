@@ -9,6 +9,7 @@ import {
   Put,
   UseGuards,
   Headers,
+  Req,
 } from '@nestjs/common';
 import { UserProfileService } from './user-profile.service';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
@@ -20,22 +21,13 @@ export class UserProfileController {
 
   @UseGuards(AuthGuard)
   @Put('')
-  updateUserProfile(
-    @Body() profileData: UpdateUserProfileDto,
-    @Headers('authorization') token: string,
-  ) {
-    if (token.startsWith('Bearer ')) {
-      token = token.slice(7, token.length).trimLeft();
-    }
-    return this.userProfileService?.updateUserProfile(token, profileData);
+  updateUserProfile(@Body() profileData: UpdateUserProfileDto, @Req() req) {
+    return this.userProfileService?.updateUserProfile(req?.user, profileData);
   }
 
   @UseGuards(AuthGuard)
   @Get('')
-  getUserProfile(@Headers('authorization') token: string) {
-    if (token.startsWith('Bearer ')) {
-      token = token.slice(7, token.length).trimLeft();
-    }
-    return this.userProfileService?.getUserProfileService(token);
+  getUserProfile(@Req() reqData) {
+    return this.userProfileService?.getUserProfileService(reqData?.user);
   }
 }

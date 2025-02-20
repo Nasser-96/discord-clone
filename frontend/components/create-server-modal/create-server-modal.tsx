@@ -1,7 +1,11 @@
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import { useFormik } from "formik";
 import Modal from "../shared/modal";
-import { CreateServerRequestType } from "@/core/types&enums/types";
+import {
+  CreatedServerType,
+  CreateServerRequestType,
+  ReturnResponseType,
+} from "@/core/types&enums/types";
 import { createServerValidation } from "./create-server-validation";
 import Button from "../shared/button";
 import { useTranslation } from "react-i18next";
@@ -9,27 +13,57 @@ import InputField from "../shared/InputField";
 import { useState } from "react";
 import { ButtonVariantsEnum } from "@/core/types&enums/enums";
 import UploadImage from "../upload-image/upload-image";
-import GetBackendUrl from "@/core/helpers/backend-url";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { createServerService } from "@/core/model/services";
+import { appRoutesObj } from "@/app-paths";
 
 interface CreateServerModalProps {
+  shouldRedirect: boolean;
   closeModal: () => void;
+  onCreate?: () => void;
 }
 export default function CreateServerModal({
+  shouldRedirect,
   closeModal,
+  onCreate,
 }: CreateServerModalProps) {
   const { t } = useTranslation();
   const { validation } = createServerValidation();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik<CreateServerRequestType>({
     initialValues: { image_url: "", name: "" },
     validationSchema: validation,
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => handleSubmit(values),
   });
+
+  const handleSubmit = async (values: CreateServerRequestType) => {
+    setIsLoading(true);
+    try {
+      const createdServer: ReturnResponseType<CreatedServerType> =
+        await createServerService(values);
+      if (onCreate) {
+        onCreate();
+        closeModal();
+      }
+      if (shouldRedirect) {
+        router.push(
+          appRoutesObj.shared.getServerPath(createdServer?.response?.id)
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setIsLoading(false);
+  };
 
   const handleImageChange = (image_url: string) => {
     formik.setFieldValue("image_url", image_url);
+  };
+
+  const handleDeleteImage = () => {
+    formik.setFieldValue("image_url", "");
   };
 
   return (
@@ -46,20 +80,16 @@ export default function CreateServerModal({
         <h2 className="text-lg text-center mt-3 opacity-55">
           {t("components.CreateServerModal.subTitle")}
         </h2>
-        {formik?.values?.image_url && (
-          <Image
-            src={formik?.values?.image_url}
-            alt="server image"
-            className="w-20 h-20 rounded-full mx-auto object-fill"
-            width={100}
-            height={100}
-          />
-        )}
         <form
           className="mt-4 w-full flex items-center justify-center gap-3 flex-col"
           onSubmit={formik.handleSubmit}
         >
-          <UploadImage onChange={handleImageChange} />
+          <UploadImage
+            image={formik?.values?.image_url}
+            error={formik?.errors?.image_url ?? ""}
+            onChange={handleImageChange}
+            deleteImage={handleDeleteImage}
+          />
           <InputField
             name="name"
             aria-label={t("components.CreateServerModal.nameLabel")}

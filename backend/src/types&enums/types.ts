@@ -36,3 +36,8 @@ export type UserTokenDataType = {
   iat: number;
   exp: number;
 };
+
+export type CreateServerType = {
+  name: string;
+  image_url: string;
+};

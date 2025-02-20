@@ -25,12 +25,12 @@ model Profile {
   id                            String     @id @default(uuid())
   user_id                       String     @unique
   name                          String  
-  image_url                     String  @db.Text
-  email                         String?  @db.Text @unique 
+  image_url                     String     @db.Text
+  email                         String?    @db.Text @unique 
   theme                         ThemeEnum  @default(LIGHT)
   preferred_language            PreferredLanguageEnum @default(en)
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
+  created_at                    DateTime   @default(now())
+  updated_at                    DateTime   @updatedAt
 
   user_data User @relation(fields: [user_id], references: [id], onDelete: Cascade) // One-to-One Relationship
 }
@@ -40,10 +40,10 @@ model Server {
   name                          String
   image_url                     String     @db.Text
   invite_code                   String     @db.Text
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
+  created_at                    DateTime   @default(now())
+  updated_at                    DateTime   @updatedAt
 
-  user_id                       String     @unique
+  user_id                       String    
   user User  @relation(fields: [user_id],references: [id],onDelete: Cascade)
 
   members Member[]
@@ -55,10 +55,10 @@ model Server {
 model Member{
   id                            String     @id @default(uuid())
   role                          MemberRole @default(GUEST)
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
+  created_at                    DateTime   @default(now())
+  updated_at                    DateTime   @updatedAt
 
-  user_id                       String     @unique
+  user_id                       String
   user User  @relation(fields: [user_id],references: [id],onDelete: Cascade)
 
   server_id                     String
@@ -69,13 +69,13 @@ model Member{
 }
 
 model Channel {
-  id                            String     @id @default(uuid())
+  id                            String      @id @default(uuid())
   name                          String
   type                          ChannelType @default(TEXT)
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
+  created_at                    DateTime    @default(now())
+  updated_at                    DateTime    @updatedAt
 
-  user_id                       String     @unique
+  user_id                       String
   user User  @relation(fields: [user_id],references: [id],onDelete: Cascade)
 
   server_id                     String
