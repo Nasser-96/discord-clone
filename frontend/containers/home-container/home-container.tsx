@@ -54,9 +54,11 @@ export default function HomeContainer() {
       </div>
     );
   }
-  return isModalOpen ? (
-    <CreateServerModal shouldRedirect closeModal={closeModal} />
-  ) : (
-    <></>
+  return (
+    <CreateServerModal
+      isModalOpen={isModalOpen}
+      shouldRedirect
+      closeModal={closeModal}
+    />
   );
 }

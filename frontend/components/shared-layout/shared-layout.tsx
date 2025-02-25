@@ -168,13 +168,13 @@ export default function SharedLayout() {
           </Button>
         </div>
       </div>
-      {isCreateServerModalOpen && (
-        <CreateServerModal
-          shouldRedirect={false}
-          onCreate={fetchServers}
-          closeModal={closeCreateServerModal}
-        />
-      )}
+
+      <CreateServerModal
+        shouldRedirect={false}
+        isModalOpen={isCreateServerModalOpen}
+        onCreate={fetchServers}
+        closeModal={closeCreateServerModal}
+      />
     </>
   );
 }

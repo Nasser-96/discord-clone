@@ -12,5 +12,11 @@
   "components.CreateServerModal.namePlaceholder": "Enter server name",
   "components.UploadImage.title": "Upload Image",
   "component.SharedLayout.addServer": "Add Server",
-  "component.SharedLayout.language": "AR"
+  "component.SharedLayout.language": "AR",
+  "component.ServerSidebarDropdown.invite": "Invite People",
+  "component.ServerSidebarDropdown.serverSettings": "Server Settings",
+  "component.ServerSidebarDropdown.manageMembers": "Manage Members",
+  "component.ServerSidebarDropdown.createChannel": "Create Channel",
+  "component.ServerSidebarDropdown.leaveServer": "Leave Channel",
+  "component.ServerSidebarDropdown.deleteServer": "Delete Server"
 }

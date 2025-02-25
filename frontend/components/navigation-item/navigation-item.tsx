@@ -24,7 +24,7 @@ export default function NavigationItem({
 }: NavigationItemProps) {
   const router = useRouter();
   const params = useParams();
-  const { userData, logout } = useUserStore();
+  const { userData } = useUserStore();
   const dir =
     userData?.profile?.preferred_language === LanguageEnum.AR
       ? DirectionEnum.RTL

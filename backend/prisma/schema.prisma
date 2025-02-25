@@ -54,7 +54,7 @@ model Server {
 
 model Member{
   id                            String     @id @default(uuid())
-  role                          MemberRole @default(GUEST)
+  role                          MemberRoleEnum @default(GUEST)
   created_at                    DateTime   @default(now())
   updated_at                    DateTime   @updatedAt
 
@@ -100,7 +100,7 @@ enum PreferredLanguageEnum {
   ar
 }
 
-enum MemberRole {
+enum MemberRoleEnum {
   ADMIN
   MODERATOR
   GUEST

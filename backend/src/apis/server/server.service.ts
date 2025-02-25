@@ -4,7 +4,7 @@ import { BadGatewayException, Injectable } from '@nestjs/common';
 import ReturnResponse from 'src/helper/returnResponse';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateServerType, UserTokenDataType } from 'src/types&enums/types';
-import { MemberRole } from '@prisma/client';
+import { MemberRoleEnum } from '@prisma/client';
 
 @Injectable()
 export class ServerService {
@@ -28,7 +28,7 @@ export class ServerService {
             create: [
               {
                 user_id: userData?.id,
-                role: MemberRole.ADMIN,
+                role: MemberRoleEnum.ADMIN,
               },
             ],
           },
@@ -111,11 +111,12 @@ export class ServerService {
       },
     });
 
-    const members = foundServer.members.map(({ user }) => ({
+    const members = foundServer.members.map(({ user, role }) => ({
       email: user?.user_profile.email,
       image_url: user?.user_profile.image_url,
       user_id: user?.user_profile.user_id,
       username: user?.username,
+      role,
     }));
 
     const returnObject = {

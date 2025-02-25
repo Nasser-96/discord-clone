@@ -12,5 +12,11 @@
   "components.CreateServerModal.namePlaceholder": "أدخل اسم الخادم",
   "components.UploadImage.title": "تحميل صورة",
   "component.SharedLayout.addServer": "إضافة خادم",
-  "component.SharedLayout.language": "EN"
+  "component.SharedLayout.language": "EN",
+  "component.ServerSidebarDropdown.invite": "دعوة أشخاص",
+  "component.ServerSidebarDropdown.serverSettings": "إعدادات الخادم",
+  "component.ServerSidebarDropdown.manageMembers": "إدارة الأعضاء",
+  "component.ServerSidebarDropdown.createChannel": "إنشاء قناة",
+  "component.ServerSidebarDropdown.leaveServer": "مغادرة الخادم",
+  "component.ServerSidebarDropdown.deleteServer": "حذف الخادم"
 }

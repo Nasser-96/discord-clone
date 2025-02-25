@@ -73,12 +73,13 @@ export default function RootLayout({
           <div className="flex items-start justify-start w-full">
             {userData?.username && (
               <div
-                className={`hidden md:flex h-full items-center w-[72px] z-30 flex-col fixed inset-y-0 bg-gray-100 dark:bg-slate-950 ${getTransitionClass}`}
+                className={`hidden md:flex h-full items-center w-[72px] z-30 flex-col fixed bg-gray-200 dark:bg-slate-950 ${getTransitionClass}`}
+                id="global-sidebar"
               >
                 <SharedLayout />
               </div>
             )}
-            <div className="md:ps-20 w-full h-full">{children}</div>
+            <div className="md:ps-[72px] w-full h-full">{children}</div>
           </div>
         </I18nextProvider>
       );

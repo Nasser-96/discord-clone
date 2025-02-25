@@ -46,8 +46,14 @@ export enum ButtonSizeEnum {
   ICON = "ICON",
 }
 
-export enum ChannelType {
+export enum ChannelTypeEnum {
   TEXT = "TEXT",
   AUDIO = "AUDIO",
   VIDEO = "VIDEO",
+}
+
+export enum MemberRoleEnum {
+  ADMIN = "ADMIN",
+  MODERATOR = "MODERATOR",
+  GUEST = "GUEST",
 }

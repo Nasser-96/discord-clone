@@ -19,11 +19,13 @@ import { appRoutesObj } from "@/app-paths";
 
 interface CreateServerModalProps {
   shouldRedirect: boolean;
+  isModalOpen: boolean;
   closeModal: () => void;
   onCreate?: () => void;
 }
 export default function CreateServerModal({
   shouldRedirect,
+  isModalOpen,
   closeModal,
   onCreate,
 }: CreateServerModalProps) {
@@ -67,7 +69,7 @@ export default function CreateServerModal({
   };
 
   return (
-    <Modal>
+    <Modal isOpen={isModalOpen}>
       <div className="flex flex-col gap-2">
         <div className="flex items-center">
           <h1 className="font-bold w-full text-2xl text-center">

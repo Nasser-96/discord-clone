@@ -1,4 +1,9 @@
-import { ChannelType, LanguageEnum, ThemeEnum } from "./enums";
+import {
+  ChannelTypeEnum,
+  LanguageEnum,
+  MemberRoleEnum,
+  ThemeEnum,
+} from "./enums";
 
 export type ReturnResponseType<T> = {
   is_successful: boolean;
@@ -28,7 +33,7 @@ export type LoginResponseDataType = {
 
 export type UserStoreDataType = {
   username: string;
-  id: number;
+  id: string;
   profile: ProfileSettingsType;
   iat: number;
   exp: number;
@@ -104,13 +109,14 @@ export type ServerMemberType = {
   image_url: string;
   user_id: string;
   username: string;
+  role: MemberRoleEnum;
 };
 
 export type ServerChannelType = {
   id: string;
   name: string;
   created_at: Date;
-  type: ChannelType;
+  type: ChannelTypeEnum;
 };
 
 export type ServerByIdRequestType = {
