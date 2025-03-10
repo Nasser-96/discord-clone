@@ -6,6 +6,9 @@
   "password": "Password",
   "login": "Login",
   "shared.create": "Create",
+
+  "KEEP THIS LINE": "==========================================================================",
+
   "components.CreateServerModal.title": "Customize your server",
   "components.CreateServerModal.subTitle": "Give your server a personality with name and image. You can always change it later.",
   "components.CreateServerModal.nameLabel": "Server Name",
@@ -18,5 +21,8 @@
   "component.ServerSidebarDropdown.manageMembers": "Manage Members",
   "component.ServerSidebarDropdown.createChannel": "Create Channel",
   "component.ServerSidebarDropdown.leaveServer": "Leave Channel",
-  "component.ServerSidebarDropdown.deleteServer": "Delete Server"
+  "component.ServerSidebarDropdown.deleteServer": "Delete Server",
+  "components.InviteServerModal.title": "Invite Friends",
+  "components.InviteServerModal.inviteLabel": "Server Invite Link",
+  "components.InviteServerModal.generate": "Generate a new link"
 }

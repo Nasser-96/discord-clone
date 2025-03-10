@@ -43,6 +43,14 @@ class SharedRoutes {
   getServerPath(serverId: string): string {
     return this.getServersPath() + `/${serverId}`;
   }
+
+  getInvitePath(): string {
+    return "/invite";
+  }
+
+  getInviteByIdPath(inviteId: string): string {
+    return this.getInvitePath() + `/${inviteId}`;
+  }
 }
 
 export const appRoutesObj = AppRoutes.getInstance();

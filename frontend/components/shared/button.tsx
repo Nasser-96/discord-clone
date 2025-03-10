@@ -28,6 +28,10 @@ export default function Button({
         className =
           "bg-red-500 hover:bg-red-500/90 text-white dark:bg-red-500 dark:hover:bg-red-500/90";
         break;
+      case ButtonVariantsEnum.LINK:
+        className =
+          "hover:underline underline-offset-8 dark:text-white text-black dark:hover:text-white hover:text-black";
+        break;
     }
     return className;
   };

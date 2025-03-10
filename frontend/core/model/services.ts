@@ -72,3 +72,10 @@ export const getServerByIdService = async (serverId: string) => {
     url: urls?.serverModel?.serverById(serverId),
   });
 };
+
+// export const generateNewInviteLinkService = async (serverId: string) => {
+//   return makeRequest({
+//     method: AxiosMethods.GET,
+//     url: urls?.serverModel?.serverById(serverId),
+//   });
+// };

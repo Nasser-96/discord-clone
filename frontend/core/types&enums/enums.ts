@@ -36,7 +36,7 @@ export enum ButtonVariantsEnum {
   // SECONDARY = "SECONDARY",
   // GHOST = "GHOST",
   NONE = "NONE",
-  // LINK = "LINK",
+  LINK = "LINK",
 }
 
 export enum ButtonSizeEnum {

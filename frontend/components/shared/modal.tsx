@@ -11,7 +11,7 @@ export enum ModalSizeEnum {
 /* eslint-disable-next-line */
 export interface ModalProps {
   children: JSX.Element;
-  isOpen: boolean;
+  isRoot?: boolean;
   size?: string;
   img?: string;
   imgStyle?: string;
@@ -22,8 +22,8 @@ export function Modal({
   children,
   size = ModalSizeEnum.LARGE,
   img,
-  isOpen,
   imgStyle,
+  isRoot = false,
   extraClasses = "",
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -69,14 +69,13 @@ export function Modal({
 
   useEffect(() => {
     const sidebar = document.getElementById("global-sidebar");
-    if (sidebar) {
-      if (isOpen) {
-        sidebar.classList.add("!z-20");
-      } else {
-        sidebar.classList.remove("!z-20");
-      }
+    if (sidebar && !isRoot) {
+      sidebar.classList.add("!z-10");
+      return () => {
+        sidebar.classList.remove("!z-10");
+      };
     }
-  }, [isOpen]);
+  }, []);
 
   useEffect(() => {
     // check if modal is shown
@@ -93,15 +92,11 @@ export function Modal({
     <>
       {/* <!--Overlay Effect--> */}
       <div
-        className={`!z-50 fixed inset-0 min-h-full overflow-hidden bg-white/5 backdrop-blur-md dark:bg-black/30 dark:backdrop-blur-lg ${
-          isOpen ? "scale-100" : "scale-0"
-        } ${getTransitionClass}`}
+        className={`!z-50 fixed inset-0 min-h-full overflow-hidden bg-white/5 backdrop-blur-md dark:bg-black/30 dark:backdrop-blur-lg ${getTransitionClass}`}
       />
 
       <div
-        className={`!z-50 fixed inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-gray-600/50 dark:bg-black/50 ${getTransitionClass} ${
-          isOpen ? "scale-100" : "scale-0"
-        }`}
+        className={`!z-50 fixed inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-gray-600/50 dark:bg-black/50 ${getTransitionClass}`}
         id={`my-modal-${Math.random()}`}
         ref={modalRef}
       >

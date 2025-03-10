@@ -6,6 +6,9 @@
   "password": "كلمة المرور",
   "login": "تسجيل الدخول",
   "shared.create": "إنشاء",
+
+  "KEEP THIS LINE": "==========================================================================",
+
   "components.CreateServerModal.title": "خصص الخادم الخاص بك",
   "components.CreateServerModal.subTitle": "امنح خادمك شخصية باسم وصورة. يمكنك دائمًا تغييرها لاحقًا.",
   "components.CreateServerModal.nameLabel": "اسم الخادم",
@@ -18,5 +21,8 @@
   "component.ServerSidebarDropdown.manageMembers": "إدارة الأعضاء",
   "component.ServerSidebarDropdown.createChannel": "إنشاء قناة",
   "component.ServerSidebarDropdown.leaveServer": "مغادرة الخادم",
-  "component.ServerSidebarDropdown.deleteServer": "حذف الخادم"
+  "component.ServerSidebarDropdown.deleteServer": "حذف الخادم",
+  "components.InviteServerModal.title": "دعوة الأصدقاء",
+  "components.InviteServerModal.inviteLabel": "رابط الدعوة",
+  "components.InviteServerModal.generate": "إنشاء رابط جديد"
 }

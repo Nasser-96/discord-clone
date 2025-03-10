@@ -40,7 +40,7 @@ const ServerIdLayout = ({ children }: Readonly<ServerIdLayoutProps>) => {
 
   return (
     <div className="h-full">
-      <div className="hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0">
+      <div className="hidden md:flex h-full w-60 z-10 flex-col fixed inset-y-0">
         {isLoading || !serverData ? (
           <div className="h-full flex items-center justify-center">
             <ComponentLoader />

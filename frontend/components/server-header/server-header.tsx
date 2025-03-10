@@ -42,10 +42,12 @@ export default function ServerHeader({ server, role }: ServerHeaderProps) {
           <FiChevronDown />
         </div>
       </DropDownMenu>
-      <InviteServerModal
-        isOpen={isInviteModalOpen}
-        closeInviteModal={closeInviteModal}
-      />
+      {isInviteModalOpen && (
+        <InviteServerModal
+          server={server}
+          closeInviteModal={closeInviteModal}
+        />
+      )}
     </>
   );
 }
